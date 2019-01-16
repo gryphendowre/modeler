@@ -51,7 +51,7 @@ public class AvailableItemCollection extends AbstractModelList<IAvailableItem> {
    */
   @Bindable
   @Override
-  public List<IAvailableItem> getChildren() {
+  public List<Object> getChildren() {
     int tableCount = getAvailableTableCount();
     if ( tableCount == 1 ) {
       return getAsFlatAvailableFieldsList();

@@ -80,7 +80,7 @@ public class TableModelerSource implements ISpoonModelerSource {
 
   public void initialize( Domain domain ) throws ModelerException {
     SqlPhysicalModel model = (SqlPhysicalModel) domain.getPhysicalModels().get( 0 );
-    SqlPhysicalTable table = model.getPhysicalTables().get( 0 );
+    SqlPhysicalTable table = (SqlPhysicalTable) model.getPhysicalTables().get( 0 );
 
     String targetTable = (String) table.getProperty( "target_table" );
     if ( !StringUtils.isEmpty( targetTable ) ) {

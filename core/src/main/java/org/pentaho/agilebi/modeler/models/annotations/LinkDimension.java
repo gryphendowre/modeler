@@ -182,7 +182,7 @@ public class LinkDimension extends AnnotationType {
     LogicalModel logicalModel = factWorkspace.getLogicalModel( ModelerPerspective.ANALYSIS );
     logicalModel.addLogicalTable( dimTable );
     @SuppressWarnings( "unchecked" ) List<SqlPhysicalTable> physicalTables =
-        (List<SqlPhysicalTable>) factWorkspace.getDomain().getPhysicalModels().get( 0 ).getPhysicalTables();
+        (List<SqlPhysicalTable>) (List<?>) factWorkspace.getDomain().getPhysicalModels().get( 0 ).getPhysicalTables();
     physicalTables.add( (SqlPhysicalTable) dimTable.getPhysicalTable() );
     logicalModel.addLogicalRelationship(
         new LogicalRelationship(

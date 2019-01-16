@@ -59,7 +59,7 @@ public class GeoContext extends AbstractModelList<GeoRole> {
 
   public GeoRole getGeoRole( int index ) {
     if ( index >= 0 && children.size() >= index ) {
-      return children.get( index );
+      return (GeoRole) children.get( index );
     } else {
       return null;
     }
@@ -80,7 +80,8 @@ public class GeoContext extends AbstractModelList<GeoRole> {
   }
 
   public GeoRole matchFieldToGeoRole( AvailableField field ) {
-    for ( GeoRole role : this ) {
+    for ( Object objRole : this ) {
+      GeoRole role = (GeoRole) objRole;
       if ( role.evaluate( field.getPhysicalColumn().getId() ) ) {
         return role;
       } else if ( field.getPhysicalColumn().getId().startsWith( "pc__" ) ) {
@@ -94,7 +95,8 @@ public class GeoContext extends AbstractModelList<GeoRole> {
   }
 
   public GeoRole matchColumnToGeoRole( IPhysicalColumn column ) {
-    for ( GeoRole role : this ) {
+    for ( Object objRole : this ) {
+      GeoRole role = (GeoRole) objRole;
       if ( role.evaluate( column.getId() ) ) {
         return role;
       }
@@ -118,7 +120,7 @@ public class GeoContext extends AbstractModelList<GeoRole> {
         dimName = getDimensionName();
       } else {
         // have to name the dimensions in context with the tables they are built from
-        dimName = table.getName() + get( 0 ).getMatchSeparator() + getDimensionName();
+        dimName = table.getName() + ((GeoRole) get( 0 )).getMatchSeparator() + getDimensionName();
       }
 
       // see if the desired name is already the name of a column
@@ -183,7 +185,7 @@ public class GeoContext extends AbstractModelList<GeoRole> {
       if ( levels.size() > 0 ) {
         // now that we have the levels of the geo dim, put them in the hierarchy in the correct order
         for ( int i = 0; i < size(); i++ ) {
-          GeoRole knownRole = get( i );
+          GeoRole knownRole = (GeoRole) get( i );
           for ( LevelMetaData level : levels ) {
             if ( knownRole.equals( level.getMemberAnnotations().get( ANNOTATION_GEO_ROLE ) ) ) {
 
@@ -309,7 +311,8 @@ public class GeoContext extends AbstractModelList<GeoRole> {
 
   public GeoRole getGeoRoleByName( String name ) {
 
-    for ( GeoRole role : this ) {
+    for ( Object objRole : this ) {
+      GeoRole role = (GeoRole) objRole;
       if ( role.getName().equalsIgnoreCase( name ) ) {
         return role;
       }
